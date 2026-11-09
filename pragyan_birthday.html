@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080706">
+<title>For Pragyan — A Birthday to Remember</title>
+<style>
+:root{--gold:#d8b56a;--gold2:#f5df9b;--ink:#080706;--muted:#b9ad96;--panel:rgba(255,255,255,.055)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:#f8f2e6;font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+button{font:inherit}
+#stars{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 20%,rgba(150,105,35,.15),transparent 55%),radial-gradient(ellipse at 80% 85%,rgba(150,105,35,.08),transparent 45%)}
+.gold{color:var(--gold2)}
+.eyebrow{font:600 .72rem/1.5 Arial,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);text-align:center}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(3.2rem,10vw,7.5rem);line-height:.94;letter-spacing:-.055em;font-weight:400;margin:22px 0}
+h2{font-size:clamp(2.1rem,6vw,4.3rem);font-weight:400;letter-spacing:-.04em;margin-bottom:16px}
+p{color:var(--muted);line-height:1.8;font-size:1.04rem}
+button,.btn{border:1px solid rgba(216,181,106,.65);background:linear-gradient(135deg,#e9cf8d,#b78b3e);color:#171108;padding:15px 25px;border-radius:3px;letter-spacing:.12em;text-transform:uppercase;font:700 .72rem Arial,sans-serif;cursor:pointer;transition:.25s;box-shadow:0 8px 30px #0008}
+button:hover,.btn:hover{transform:translateY(-3px);box-shadow:0 12px 35px #c49a4c33}
+button.secondary{background:transparent;color:var(--gold2);box-shadow:none}
+button:focus-visible{outline:2px solid white;outline-offset:4px}
+#intro{min-height:100svh;display:grid;place-items:center;text-align:center;padding:35px 20px;position:relative}
+.intro-inner{max-width:850px;animation:rise 1.2s both}
+.seal{width:88px;height:88px;border:1px solid #c9a45d;border-radius:50%;display:grid;place-items:center;margin:0 auto 35px;color:var(--gold2);font-size:2rem;box-shadow:0 0 45px #d5ad5730,inset 0 0 25px #d5ad5715}
+.intro-copy{max-width:540px;margin:0 auto 32px}
+.rule{height:1px;width:min(230px,60vw);margin:26px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+main{display:none}
+main.show{display:block;animation:rise .9s both}
+section{padding:100px 22px;max-width:1050px;margin:auto;text-align:center}
+.hero{min-height:90svh;display:grid;place-items:center;position:relative}
+.hero h1 span{display:block;color:var(--gold2);font-style:italic}
+.hero p{max-width:600px;margin:25px auto}
+.gold-line{width:90px;height:1px;background:var(--gold);margin:25px auto}
+.card{border:1px solid rgba(216,181,106,.23);background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.018));padding:clamp(25px,5vw,48px);max-width:760px;margin:30px auto;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;inset:8px;border:1px solid rgba(216,181,106,.1);pointer-events:none}
+.quote{font-size:clamp(1.35rem,3.8vw,2.15rem);line-height:1.55;color:#f5e9cf;font-style:italic}
+.signature{color:var(--gold);font: .72rem Arial,sans-serif;letter-spacing:.24em;text-transform:uppercase;margin-top:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:35px}
+.tile{min-height:170px;padding:24px 17px;border:1px solid #b68e493d;background:var(--panel);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;transition:.3s}
+.tile:hover{transform:translateY(-5px);border-color:#d8b56a99}
+.tile .symbol{font-size:2rem;color:var(--gold2)}
+.tile strong{font-size:1.05rem;font-weight:400;color:#f3e6c9}
+.tile small{font: .72rem/1.6 Arial,sans-serif;color:var(--muted);letter-spacing:.04em}
+.timeline{max-width:650px;margin:35px auto;text-align:left}
+.step{display:grid;grid-template-columns:35px 1fr;gap:18px;padding:0 0 28px}
+.dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--gold);margin:8px auto;box-shadow:0 0 14px #d8b56a66}
+.step h3{font-size:1.2rem;font-weight:400;color:var(--gold2);margin-bottom:7px}
+.step p{font-size:.95rem;margin:0}
+.reveal-box{max-width:650px;margin:30px auto}
+.hidden-message{display:none;margin-top:25px;animation:rise .7s both}
+.hidden-message.open{display:block}
+.gift{width:130px;height:115px;margin:0 auto 24px;position:relative;cursor:pointer;transition:.4s}
+.gift:hover{transform:translateY(-7px)}
+.gift-base{position:absolute;bottom:0;left:8px;width:114px;height:78px;background:linear-gradient(120deg,#b58a3f,#e8cc80);border-radius:2px;box-shadow:0 12px 25px #0008}
+.gift-lid{position:absolute;top:20px;left:0;width:130px;height:25px;background:linear-gradient(120deg,#e8ce8b,#a97b32);border-radius:2px;transform-origin:10% 90%;transition:.8s;z-index:2}
+.gift-ribbon{position:absolute;left:57px;bottom:0;width:16px;height:78px;background:#5b1718;z-index:1}
+.gift-bow{position:absolute;top:1px;left:46px;width:40px;height:23px;border:7px solid #6d2020;border-radius:50% 50% 0 50%;transform:rotate(20deg);z-index:3}
+.gift-bow:after{content:"";position:absolute;width:40px;height:23px;border:7px solid #6d2020;border-radius:50% 50% 50% 0;left:12px;top:-8px;transform:rotate(-40deg)}
+.gift.open .gift-lid{transform:translate(-12px,-38px) rotate(-25deg)}
+.sparkle{position:absolute;color:var(--gold2);animation:twinkle 2s infinite}
+.sparkle:nth-child(1){top:0;left:8%}.sparkle:nth-child(2){top:25%;right:9%;animation-delay:.7s}.sparkle:nth-child(3){bottom:15%;left:15%;animation-delay:1.2s}
+.final{padding-bottom:120px}
+.footer{padding:35px 20px;text-align:center;border-top:1px solid #d8b56a22;color:#827966;font: .68rem Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+#toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#20190e;border:1px solid #b68e49;color:#f4dfaa;padding:12px 18px;font: .8rem Arial,sans-serif;transition:.3s;z-index:10;text-align:center;width:max-content;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.confetti{position:fixed;top:-20px;width:7px;height:13px;background:var(--gold);z-index:9;pointer-events:none;animation:fall linear forwards}
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@media(max-width:650px){section{padding:75px 18px}.grid{grid-template-columns:1fr}.tile{min-height:130px}.hero{min-height:80svh}.card{padding:30px 22px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas><div class="ambient"></div>
+<div id="intro">
+  <div class="intro-inner">
+    <div class="seal">✦</div>
+    <div class="eyebrow">A little something, made just for you</div>
+    <h1>For <span class="gold">Pragyan.</span></h1>
+    <div class="rule"></div>
+    <p class="intro-copy">Some people enter your life and make ordinary days feel a little more special. This little corner of the internet is dedicated to one of them.</p>
+    <button id="enterBtn">Open your surprise&nbsp; ✦</button>
+    <p style="font: .65rem Arial,sans-serif;letter-spacing:.18em;margin-top:24px;color:#766c5a">MADE WITH RESPECT, MEMORIES & A LOT OF BROTHERHOOD</p>
+  </div>
+</div>
+<main id="experience">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Today, the spotlight is yours</div>
+      <h1>Happy Birthday,<span>Pragyan.</span></h1>
+      <div class="gold-line"></div>
+      <p>Another year. More dreams to chase, more stories to create, and more reasons to be proud of the person you're becoming.</p>
+      <button class="secondary" onclick="document.getElementById('note').scrollIntoView({behavior:'smooth'})">Read a little note ↓</button>
+    </div>
+    <span class="sparkle">✦</span><span class="sparkle">✧</span><span class="sparkle">✦</span>
+  </section>
+
+  <section id="note">
+    <div class="eyebrow">A note from your brother</div>
+    <h2>Not just a friend.<br><span class="gold">Family by choice.</span></h2>
+    <div class="card">
+      <div class="quote">"Life gives us many people to meet, but only a few who feel like brothers. You're one of those rare people."</div>
+      <div class="gold-line"></div>
+      <p>Pragyan, I may not say it every day, but your place in my life matters. Thank you for the laughs, the support, the random conversations and all the little moments that make a friendship real.</p>
+      <p>May you always have the courage to follow your dreams, the strength to face difficult days, and the wisdom to stay true to yourself. Keep growing, keep shining, and never stop being you.</p>
+      <div class="signature">With respect & brotherhood</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">The things that make a bond</div>
+    <h2>Here's to <span class="gold">our kind of friendship.</span></h2>
+    <div class="grid">
+      <div class="tile"><div class="symbol">✧</div><strong>Unfiltered laughs</strong><small>The kind that turn a normal day into a memory.</small></div>
+      <div class="tile"><div class="symbol">♛</div><strong>Always in your corner</strong><small>Respect, support and standing by each other.</small></div>
+      <div class="tile"><div class="symbol">∞</div><strong>More chapters ahead</strong><small>There are still countless stories waiting to happen.</small></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">A few wishes for your next chapter</div>
+    <h2>May this year bring you…</h2>
+    <div class="timeline">
+      <div class="step"><div class="dot"></div><div><h3>Big dreams, bigger courage</h3><p>May you believe in your potential even on the days when the road feels difficult.</p></div></div>
+      <div class="step"><div class="dot"></div><div><h3>Success you can be proud of</h3><p>May your hard work open doors and take you places you once only imagined.</p></div></div>
+      <div class="step"><div class="dot"></div><div><h3>Peace, health and happiness</h3><p>May the good moments be many, and may you always find strength in the tough ones.</p></div></div>
+      <div class="step"><div class="dot"></div><div><h3>People who truly value you</h3><p>May you always be surrounded by honesty, loyalty and genuine care.</p></div></div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="eyebrow">One last surprise</div>
+    <h2>A gift, wrapped in <span class="gold">good wishes.</span></h2>
+    <p>Tap the gift to open your final birthday message.</p>
+    <div class="reveal-box">
+      <div class="gift" id="gift" role="button" tabindex="0" aria-label="Open the birthday gift">
+        <div class="gift-bow"></div><div class="gift-lid"></div><div class="gift-base"></div><div class="gift-ribbon"></div>
+      </div>
+      <button id="giftBtn">Open the gift ✦</button>
+      <div class="hidden-message" id="hiddenMessage">
+        <div class="card">
+          <div class="eyebrow">A promise for the road ahead</div>
+          <div class="quote">"No matter how far life takes us, never forget the people who stood beside you along the way."</div>
+          <div class="gold-line"></div>
+          <h2 class="gold">Happy Birthday, Pragyan!</h2>
+          <p>Stay humble. Stay fearless. Keep becoming the best version of yourself. Here's to a lifetime of achievements, unforgettable moments and brotherhood.</p>
+          <div class="signature">Your dost jaisa bhai ✦</div>
+        </div>
+        <button class="secondary" id="celebrateBtn">Celebrate again ✨</button>
+      </div>
+    </div>
+  </section>
+  <div class="footer">Crafted especially for Pragyan · With brotherhood, always</div>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const canvas=document.getElementById('stars'),ctx=canvas.getContext('2d');let stars=[];
+function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);stars=Array.from({length:Math.min(110,Math.floor(innerWidth/9))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.4+.25,a:Math.random()*.65+.15,s:Math.random()*.008+.002}))}
+function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);stars.forEach(v=>{v.a+=Math.sin(Date.now()*v.s)*.002;ctx.beginPath();ctx.arc(v.x,v.y,v.r,0,Math.PI*2);ctx.fillStyle=`rgba(232,204,137,${Math.max(.1,Math.min(.8,v.a))})`;ctx.fill()});requestAnimationFrame(draw)}
+addEventListener('resize',resize);resize();draw();
+const intro=document.getElementById('intro'),main=document.getElementById('experience');
+document.getElementById('enterBtn').addEventListener('click',()=>{intro.style.display='none';main.classList.add('show');window.scrollTo(0,0);toast('Welcome to your birthday surprise, Pragyan ✦');});
+const gift=document.getElementById('gift'),giftBtn=document.getElementById('giftBtn'),message=document.getElementById('hiddenMessage');
+function openGift(){if(message.classList.contains('open'))return;gift.classList.add('open');message.classList.add('open');giftBtn.textContent='Your message is open ✦';giftBtn.disabled=true;confetti();setTimeout(()=>message.scrollIntoView({behavior:'smooth',block:'center'}),350)}
+gift.addEventListener('click',openGift);gift.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openGift()}});giftBtn.addEventListener('click',openGift);
+document.getElementById('celebrateBtn').addEventListener('click',()=>{confetti();toast('Wishing you an amazing year ahead!')});
+function confetti(){for(let i=0;i<85;i++){let el=document.createElement('i');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.animationDuration=(2.4+Math.random()*3)+'s';el.style.animationDelay=(Math.random()*.7)+'s';el.style.opacity=.5+Math.random()*.5;el.style.transform=`rotate(${Math.random()*180}deg)`;document.body.appendChild(el);setTimeout(()=>el.remove(),6500)}}
+let toastTimer;function toast(t){let el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2800)}
+</script>
+</body>
+</html>
